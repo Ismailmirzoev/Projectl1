@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="check.css">
+    <title>Document</title>
+</head>
+<body onload="func2()">
+    <div class="parent">
+        <div class="div1">
+            <p>Summer Sale For All Swim Suits And Free Express Delivery - OFF 50%! <a href="shop.html" id="a1">ShopNow</a></p>
+        </div>
+        <div class="div2">
+            <p><a id="p1" href="index.html"><b>E-commerce</b></a></p>
+            <p><a class="p2" href="index.html">Home</a></p>
+            <p><a class="p2" href="contact.html">Contact</a></p=>
+            <p><a class="p2" href="about.html">About</a></p>
+            <p><a class="p2" href="signup.html">Sign Up</a></p>
+            <p><a class="p2" href="shop.html">Shop</a></p>
+            <input id="inp1" type="text" placeholder="What are you looking for?">
+            <button class="icon1"><i class="fa-solid fa-magnifying-glass"></i></button>
+            <a href="shop.html"><button class="icon1"><i class="fa-solid fa-basket-shopping"></i></button></a>
+            <div id="auth-status-container" style="display: inline-flex; align-items: center; margin-left: 15px;">
+                <div id="auth-status-container">
+                    <a href="login.html">Войти</a>
+                </div>
+            </div>
+        </div>
+        <div class="child1">
+            <div class="di1">
+                <p class="fir">First Name</p> <br>
+                <input class="ll1" type="text"><br>
+                <p class="fir">Lst Name</p><br>
+                <input class="ll1" type="text"><br>
+                <p class="fir">State</p><br>
+                <select name="Choose..." class="ll1" id="">
+                    <option value="Choose...">Choose...</option>
+                    <option value="Turkey">Turkey</option>
+                    <option value="Azerbaijan">Azerbaijan</option>
+                    <option value="Russia">Russia</option>
+                    <option value="Spain">Spain</option>
+                </select><br>
+                <p class="fir">Address</p><br>
+                <input class="ll1" type="text"><br>
+                <p class="fir">Zip</p><br>
+                <input class="ll1" type="text"><br>
+                <p class="fir">Tel</p><br>
+                <input class="ll1" placeholder="+994" type="text"><br>
+                <p class="fir">Email</p><br>
+                <input class="ll1" type="text"><br>
+                <div class="check1">
+                    <input class="check" type="checkbox"> <p class="agree">Agree To Teams And Conditions</p>
+                </div>
+            </div>
+            <div class="di2">
+                <p class="fir">Card Number</p><br>
+                <input placeholder="0000 0000 0000 0000" class="ll3" type="text"><br>
+                <div class="di">
+                    <div class="di3">
+                        <p class="fir">Expiration(MM)</p> <br>
+                        <input class="ll2" placeholder="MM" type="text">
+                    </div>
+                    <div class="di3">
+                        <p class="fir">Expiration(YY)</p> <br>
+                        <input class="ll2" placeholder="YY" type="text">
+                    </div>
+                    <div class="di3">
+                        <p class="fir">Card Secuarty Code</p> <br>
+                        <input class="ll2" placeholder="XXX" type="text">
+                    </div>
+                </div>
+                <p class="su1">Subtotal <span></span> <br> <span class="s1">$</span></p><br>
+                <p class="su2">Shipping <span>free</span></p><br>
+                <p class="su2">Total <span></span> <br> <span class="s1">$</span></p><br>
+                <button onclick="index()" class="btn3">Place Order</button>
+            </div>
+        </div>
+    </div>
+    <script src="check.js"></script>
+</body>
+</html>

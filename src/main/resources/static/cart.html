@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="./cart.css">
+    <title>Document</title>
+</head>
+<body onload="loadCart()">
+<div class="parent">
+    <div class="div1">
+        <p>Summer Sale For All Swim Suits And Free Express Delivery - OFF 50%! <a href="./shop.html" id="a1">ShopNow</a></p>
+    </div>
+    <div class="div2">
+        <p><a id="p1" href="./index.html"><b>E-commerce</b></a></p>
+        <p><a class="p2" href="./index.html">Home</a></p>
+        <p><a class="p2" href="./contact.html">Contact</a></p=>
+        <p><a class="p2" href="./about.html">About</a></p>
+        <p><a class="p2" href="./signup.html">Sign Up</a></p>
+        <p><a class="p2" href="./shop.html">Shop</a></p>
+        <input id="inp1" type="text" placeholder="What are you looking for?">
+        <button class="icon1"><i class="fa-solid fa-magnifying-glass"></i></button>
+        <a href="./shop.html"><button class="icon1"><i class="fa-solid fa-basket-shopping"></i></button></a>
+        <div id="auth-status-container" style="display: inline-flex; align-items: center; margin-left: 15px;">
+            <div id="auth-status-container">
+                <a href="login.html">Войти</a>
+            </div>
+        </div>
+    </div>
+    <div>
+        <h1 class="pr1">Cart</h1>
+    </div>
+    <div>
+        <br> <br>
+        <table class="table" border="">
+            <thead>
+            <tr>
+                <th class="th1">Product</th>
+                <th class="th2"></th>
+                <th class="th1">Price</th>
+                <th class="th1">Quanlity</th>
+                <th class="th1">Subtotal</th>
+                <th><button onclick="func3()" class="btn3">Show Cart Total</button></th>
+            </tr>
+            </thead>
+            <tbody class="tbody"></tbody>
+        </table>
+        <div class="cart-total-box" id="class1"> <br> <br>
+            <button onclick="funcc1()" class="delete1">X</button>
+            <p class="class2">Cart Total</p> <br>
+            <p class="class3">Subtotal <span class="span1" id="subtotal-value">$0.00</span></p> <br>
+            <p class="class3">Shipping <span class="span2">free</span></p> <br>
+            <p class="class3">Total <span class="span3" id="total-value">$0.00</span></p> <br>
+            <a href="check.html"><button class="but1">Procees to checkout</button></a>
+        </div>
+    </div>
+</div>
+<script src="./cart.js"></script>
+</body>
+</html>

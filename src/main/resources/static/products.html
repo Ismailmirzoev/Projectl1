@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>E-commerce — Products</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * { padding: 0; margin: 0; box-sizing: border-box; font-family: "Montserrat", sans-serif; }
+        .div1 { display: flex; justify-content: center; align-items: center; height: 60px; background-color: #000; color: white; font-size: 16px; }
+        .div2 { display: flex; align-items: center; justify-content: space-between; height: 100px; padding: 0 50px; border-bottom: 1px solid #e5e5e5; }
+        .logo { font-size: 30px; font-weight: bold; text-decoration: none; color: black; }
+        .nav-links a { font-size: 18px; color: black; text-decoration: none; margin-right: 20px; }
+        .btn-new { background-color: #3b82f6; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; margin: 20px 50px; }
+
+        table { width: 90%; margin: 20px auto; border-collapse: collapse; text-align: left; }
+        th, td { padding: 12px; border: 1px solid #ddd; }
+        th { background-color: #f9f9f9; font-weight: bold; }
+        #error-msg { color: red; text-align: center; font-weight: bold; margin: 20px; display: none; }
+    </style>
+</head>
+<body>
+<div class="div1">Summer Sale For All Swim Suits And Free Express Delivery - OFF 50%! <a href="#" style="color:white; margin-left:10px;">ShopNow</a></div>
+<div class="div2">
+    <a class="logo" href="#">E-commerce</a>
+    <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="contact.html">Contact</a>
+        <a href="about.html">About</a>
+        <a href="signup.html">Sign Up</a>
+    </div>
+</div>
+
+<button class="btn-new"><a href="newproduct.html">New Product</a></button>
+<div id="error-msg">Ошибка загрузки данных с бэкенда!</div>
+
+<table>
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Бренд</th>
+        <th>Модель</th>
+        <th>Категория</th>
+        <th>Изображение</th>
+        <th>Цена</th>
+        <th>Рейтинг</th>
+    </tr>
+    </thead>
+    <tbody id="products-table-body">
+    </tbody>
+</table>
+
+<script src="products.js"></script>
+</body>
+</html>
