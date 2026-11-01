@@ -1,93 +1,55 @@
-package com.example.projecti.controller;
+package com.example.projecti.service;
 
 import com.example.projecti.dto.AuthResponse;
 import com.example.projecti.dto.LoginRequest;
 import com.example.projecti.dto.RegisterRequest;
-import com.example.projecti.service.AuthService;
-import com.example.projecti.service.UserService;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.*;
+import com.example.projecti.entity.Role;
+import com.example.projecti.entity.User;
+import com.example.projecti.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.Map;
+@Service
+@RequiredArgsConstructor
+public class AuthService {
 
-@RestController
-@RequestMapping("/api/auth")
-@CrossOrigin(origins = "*")
-public class AuthController {
-    private final AuthService authService;
-    private final UserService userService;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public AuthController(AuthService authService, UserService userService) {
-        this.authService = authService;
-        this.userService = userService;
+    public String register(RegisterRequest request) {
+        if (userRepository.existsByEmail(request.getEmail())) {
+            throw new RuntimeException("Email уже зарегистрирован!");
+        }
+
+        Role userRole = Role.ROLE_BUYER;
+        if ("SELLER".equalsIgnoreCase(request.getRole())) {
+            userRole = Role.ROLE_SELLER;
+        }
+
+        User user = User.builder()
+                .username(request.getUsername())
+                .firstName(request.getFirstName())
+                .lastName(request.getLastName())
+                .email(request.getEmail())
+                .password(passwordEncoder.encode(request.getPassword()))
+                .role(userRole)
+                .build();
+
+        userRepository.save(user);
+        return "Пользователь успешно зарегистрирован";
     }
 
-    @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody RegisterRequest request) {
-        try {
-            String message = authService.register(request);
-            return ResponseEntity.ok(message);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
-    }
+    public AuthResponse login(LoginRequest request) {
+        User user = userRepository.findByEmail(request.getEmail())
+                .orElseThrow(() -> new RuntimeException("Пользователь не найден"));
 
-    @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginRequest request, HttpServletRequest servletRequest) {
-        try {
-            // 1. Проверяем данные через сервис (пароль и существование юзера)
-            AuthResponse authResponse = authService.login(request);
-
-            // 2. Получаем пользователя для настройки сессии Spring Security
-            com.example.projecti.entity.User dbUser = userService.findByEmail(request.getEmail());
-
-            UserDetails userDetails = new org.springframework.security.core.userdetails.User(
-                    dbUser.getEmail(),
-                    dbUser.getPassword(),
-                    java.util.Collections.emptyList()
-            );
-
-            UsernamePasswordAuthenticationToken authentication =
-                    new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-
-            HttpSession session = servletRequest.getSession(true);
-            session.setAttribute("SPRING_SECURITY_CONTEXT", SecurityContextHolder.getContext());
-
-            // 3. Возвращаем ответ
-            return ResponseEntity.ok(authResponse);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
-        }
-    }
-
-    @GetMapping("/me")
-    public ResponseEntity<?> getCurrentUser(@AuthenticationPrincipal UserDetails userDetails) {
-        if (userDetails == null) {
-            return ResponseEntity.status(401).body("Unauthorized");
+        if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
+            throw new RuntimeException("Неверный пароль");
         }
 
-        com.example.projecti.entity.User dbUser = userService.findByEmail(userDetails.getUsername());
+        String token = "mock-jwt-token-for-" + user.getEmail();
 
-        if (dbUser == null) {
-            return ResponseEntity.status(404).body("User not found в базе данных");
-        }
-
-        Map<String, Object> userData = new HashMap<>();
-        userData.put("email", dbUser.getEmail());
-        userData.put("firstName", dbUser.getFirstName());
-        userData.put("lastName", dbUser.getLastName());
-        userData.put("username", dbUser.getUsername());
-        userData.put("role", dbUser.getRole());
-
-        return ResponseEntity.ok(userData);
+        return new AuthResponse(token, user.getEmail(), user.getRole().name());
     }
 }
